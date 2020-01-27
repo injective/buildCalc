@@ -1,0 +1,8 @@
+.entiresInputsGroup .btn {
+  margin-top: 2em;
+  width: 100%;
+}
+
+.resultItem {
+  display: flex;
+}
