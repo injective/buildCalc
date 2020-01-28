@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import ItemsTable from '../ItemsTable';
 
 class App extends Component {
     constructor() {
@@ -15,10 +16,18 @@ class App extends Component {
             ],
             widthInput: '',
             lengthInput: '',
-            countInput: ''
+            countInput: '',
+            id: 0,
+            headerOfTableItems: {
+                ordinalNumberLabel: '#',
+                widthLabel: 'Width',
+                lengthLabel: 'Length',
+                countLabel: 'Count'
+            }
         }
     }
 
+    // onChange input values of new item
     onChangeWidthInput = (e) => {
         this.setState({
             widthInput: e.target.value
@@ -37,38 +46,49 @@ class App extends Component {
         })
     }
 
+    // adding new item to array
     onClickAddItem = () => {
         if(this.state.widthInput.length && this.state.lengthInput.length && this.state.countInput.length) {
             const newItem = {
-                widthInput: this.state.widthInput,
-                lengthInput: this.state.lengthInput,
-                countInput: this.state.countInput
+                widthInput: parseInt(this.state.widthInput),
+                lengthInput: parseInt(this.state.lengthInput),
+                countInput: parseInt(this.state.countInput)
             }
 
             this.setState((state) => ({
                 itemsArray: [...state.itemsArray, newItem],
-                widthInput: '',
-                lengthInput: '',
-                countInput: ''
+                widthInput: 0,
+                lengthInput: 0,
+                countInput: 0
             }))
         }
     }
 
     render() {
-        const { itemsArray, widthInput, lengthInput, countInput } = this.state;
+        const { itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
 
-        const newItems = itemsArray.map((item, id) => {
-            return (
-                <div key={id} className="list-group-item resultItem row">
-                    <div className='col-1'>{item.widthInput}</div>
-                    <div className='col-1'>x</div>
-                    <div className='col-1'>{item.lengthInput}</div>
-                    <div className='col-1'>-</div>
-                    <div className='col-1'>{item.countInput}</div>
-                </div>
-            );
-        });
+        // iterate all items in table
+        // const newItems = itemsArray.map((item, id) => {
+        //     return (
+        //         <div key={id} className="list-group-item resultItem row">
+        //             <div className='col-1'>{item.widthInput} {typeof item.widthInput}</div>
+        //             <div className='col-1'>x</div>
+        //             <div className='col-1'>{item.lengthInput} {typeof item.lengthInput}</div>
+        //             <div className='col-1'>-</div>
+        //             <div className='col-1'>{item.countInput} {typeof item.countInput}</div>
+        //         </div>
+        //     );
+        // });
 
+        // sum of count items
+        const sumCountItems = itemsArray.reduce((sum, obj) => {
+            return sum + obj.countInput
+        }, 0);
+
+        // sum of length items
+        const sumLengthItems = itemsArray.reduce((sum, obj) => {
+            return sum + obj.lengthInput
+        }, 0);
 
         return(
             <div className="container">
@@ -112,21 +132,15 @@ class App extends Component {
                     </div>
                 </div>
 
-                <hr />
-
                 <div className='resultListWrapper row'>
-                    <div className="list-group resultList col-12">
-                        {newItems}
-                    </div>
+                    <ItemsTable 
+                        headerLabels={headerOfTableItems} 
+                        itemsArrayProp={itemsArray} 
+                        sumCountItemsProps={sumCountItems}
+                        sumLengthItemsProps={sumLengthItems} />
 
-                    <div>
-                        <div>
-                            <span>Sum count: {Object.itemsArray.reduce((total, {countInput}) => total + countInput, 0)}</span>
-                        </div>
-                    </div>
+
                 </div>
-
-            
             </div>
         );
     }
