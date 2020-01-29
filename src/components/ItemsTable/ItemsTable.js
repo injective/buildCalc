@@ -16,8 +16,9 @@ class ItemsTable extends Component {
         const itemsTableTr = this.props.itemsArrayProp.map((item, id) => {
             return(
                 <ItemsTableTr 
+                    key={id}
                     data={item} 
-                    id={id} 
+                    id={id+1} 
                 />
             );
         });

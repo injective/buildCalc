@@ -12,7 +12,12 @@ class App extends Component {
                     widthInput: 250,
                     lengthInput: 3000,
                     countInput: 4
-                }
+                },
+                {
+                    widthInput: 100,
+                    lengthInput: 2000,
+                    countInput: 2
+                },
             ],
             widthInput: '',
             lengthInput: '',
