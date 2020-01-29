@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ItemsTableHeader from './partials/ItemsTableHeader';
 import ItemsTableTr from './partials/ItemsTableTr';
 import ItemsTableSum from './partials/ItemsTableSum';
+import './ItemsTable.css';
 
 class ItemsTable extends Component {
     constructor(props) {
@@ -13,18 +14,16 @@ class ItemsTable extends Component {
     }
 
     render() {
-        const itemsTableTr = this.props.itemsArrayProp.map((item, id) => {
+        const itemsTableTr = this.props.itemsArrayProp.map((item) => {
             return(
                 <ItemsTableTr 
-                    key={id}
-                    data={item} 
-                    id={id+1} 
+                    key={item.id}
+                    data={item}  
+                    onDeleted={(id) => {console.log('id', id)}}
                 />
             );
         });
         
-
-
         return (
             <table className='table table-striped'>
                 <ItemsTableHeader 

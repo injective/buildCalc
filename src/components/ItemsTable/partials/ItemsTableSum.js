@@ -2,11 +2,13 @@ import React from 'react';
 
 const ItemsTableSum = (props) => {
     return(
-        <tr>
+        <tr className='itemsTableSumTr'>
             <th scope='row'>Summary:</th>
             <td></td>
-            <td>{props.sumLengthItems}</td>
-            <td>{props.sumCountItems}</td>
+            <td><strong>{props.sumLengthItems}</strong></td>
+            <td><strong>{props.sumCountItems}</strong></td>
+            <td></td>
+            <td></td>
         </tr>
     );
 }

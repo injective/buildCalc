@@ -11,12 +11,26 @@ class App extends Component {
                 {
                     widthInput: 250,
                     lengthInput: 3000,
-                    countInput: 4
+                    countInput: 4,
+                    id: 1
                 },
                 {
                     widthInput: 100,
                     lengthInput: 2000,
-                    countInput: 2
+                    countInput: 2,
+                    id: 2
+                },
+                {
+                    widthInput: 200,
+                    lengthInput: 2500,
+                    countInput: 1,
+                    id: 3
+                },
+                {
+                    widthInput: 150,
+                    lengthInput: 1500,
+                    countInput: 2,
+                    id: 4
                 },
             ],
             widthInput: '',
@@ -25,12 +39,30 @@ class App extends Component {
             id: 0,
             headerOfTableItems: {
                 ordinalNumberLabel: '#',
-                widthLabel: 'Width',
-                lengthLabel: 'Length',
+                widthLabel: 'Width, mm',
+                lengthLabel: 'Length, mm',
                 countLabel: 'Count'
-            }
+            },
+
+            response: '',
+            post: '',
+            responseToPost: '',
         }
     }
+
+    componentDidMount() {
+        this.callApi()
+        .then(res => this.setState({ response: res.express }))
+        .catch(err => console.log(err));
+    }
+    
+    callApi = async () => {
+        const response = await fetch('http://localhost:3000/data');
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+        
+        return body;
+    };
 
     // onChange input values of new item
     onChangeWidthInput = (e) => {
@@ -54,10 +86,20 @@ class App extends Component {
     // adding new item to array
     onClickAddItem = () => {
         if(this.state.widthInput.length && this.state.lengthInput.length && this.state.countInput.length) {
+            const funcIdCheck = () => {
+                if(this.state.itemsArray.length) {
+                    return this.state.itemsArray[this.state.itemsArray.length-1].id + 1
+                } else {
+                    return 1
+                }
+                
+            }
+
             const newItem = {
                 widthInput: parseInt(this.state.widthInput),
                 lengthInput: parseInt(this.state.lengthInput),
-                countInput: parseInt(this.state.countInput)
+                countInput: parseInt(this.state.countInput),
+                id: funcIdCheck()
             }
 
             this.setState((state) => ({
@@ -69,21 +111,13 @@ class App extends Component {
         }
     }
 
-    render() {
-        const { itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
+    //delete item from list
+    onClickDeleteItem = (id) => {
+        console.log(id);    
+    };
 
-        // iterate all items in table
-        // const newItems = itemsArray.map((item, id) => {
-        //     return (
-        //         <div key={id} className="list-group-item resultItem row">
-        //             <div className='col-1'>{item.widthInput} {typeof item.widthInput}</div>
-        //             <div className='col-1'>x</div>
-        //             <div className='col-1'>{item.lengthInput} {typeof item.lengthInput}</div>
-        //             <div className='col-1'>-</div>
-        //             <div className='col-1'>{item.countInput} {typeof item.countInput}</div>
-        //         </div>
-        //     );
-        // });
+    render() {
+        const { response, itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
 
         // sum of count items
         const sumCountItems = itemsArray.reduce((sum, obj) => {
@@ -92,11 +126,15 @@ class App extends Component {
 
         // sum of length items
         const sumLengthItems = itemsArray.reduce((sum, obj) => {
-            return sum + obj.lengthInput
+            return (sum + obj.lengthInput * obj.countInput)
         }, 0);
+
+        
+        console.log(response);
 
         return(
             <div className="container">
+
                 <div className="row form-group entiresInputsGroup">
                     <div className="col">
                         <div className="form-group">
@@ -142,7 +180,9 @@ class App extends Component {
                         headerLabels={headerOfTableItems} 
                         itemsArrayProp={itemsArray} 
                         sumCountItemsProps={sumCountItems}
-                        sumLengthItemsProps={sumLengthItems} />
+                        sumLengthItemsProps={sumLengthItems} 
+                        onDeleted={this.onClickDeleteItem}
+                        />
 
 
                 </div>
