@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import ItemsTable from '../ItemsTable';
+import NewItemInput from '../NewItemInput';
 
 class App extends Component {
     constructor() {
@@ -117,7 +118,11 @@ class App extends Component {
     };
 
     render() {
+<<<<<<< HEAD
         const { response, itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
+=======
+        const { itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
+>>>>>>> a81a0a2c26c433c77b80a412a7dfde6773556e78
 
         // sum of count items
         const sumCountItems = itemsArray.reduce((sum, obj) => {
@@ -126,7 +131,13 @@ class App extends Component {
 
         // sum of length items
         const sumLengthItems = itemsArray.reduce((sum, obj) => {
+<<<<<<< HEAD
             return (sum + obj.lengthInput * obj.countInput)
+=======
+            return (
+                sum + (obj.lengthInput * obj.countInput)
+            );
+>>>>>>> a81a0a2c26c433c77b80a412a7dfde6773556e78
         }, 0);
 
         

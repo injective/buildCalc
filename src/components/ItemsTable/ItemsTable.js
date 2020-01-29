@@ -18,8 +18,7 @@ class ItemsTable extends Component {
             return(
                 <ItemsTableTr 
                     key={item.id}
-                    data={item}  
-                    onDeleted={(id) => {console.log('id', id)}}
+                    data={item}  s
                 />
             );
         });
