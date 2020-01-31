@@ -44,26 +44,8 @@ class App extends Component {
                 lengthLabel: 'Length, mm',
                 countLabel: 'Count'
             },
-
-            response: '',
-            post: '',
-            responseToPost: '',
         }
     }
-
-    componentDidMount() {
-        this.callApi()
-        .then(res => this.setState({ response: res.express }))
-        .catch(err => console.log(err));
-    }
-    
-    callApi = async () => {
-        const response = await fetch('http://localhost:3000/data');
-        const body = await response.json();
-        if (response.status !== 200) throw Error(body.message);
-        
-        return body;
-    };
 
     // onChange input values of new item
     onChangeWidthInput = (e) => {
@@ -84,23 +66,29 @@ class App extends Component {
         })
     }
 
+    idCounter = () => {
+        let countId;
+        
+        if(this.state.itemsArray.length) {
+            countId = this.state.itemsArray[this.state.itemsArray.length-1].id + 1;
+        } else {
+            countId = 0;
+        }
+
+        return countId++;
+        
+    }
+
+
     // adding new item to array
     onClickAddItem = () => {
         if(this.state.widthInput.length && this.state.lengthInput.length && this.state.countInput.length) {
-            const funcIdCheck = () => {
-                if(this.state.itemsArray.length) {
-                    return this.state.itemsArray[this.state.itemsArray.length-1].id + 1
-                } else {
-                    return 1
-                }
-                
-            }
-
+            
             const newItem = {
                 widthInput: parseInt(this.state.widthInput),
                 lengthInput: parseInt(this.state.lengthInput),
                 countInput: parseInt(this.state.countInput),
-                id: funcIdCheck()
+                id: this.idCounter()
             }
 
             this.setState((state) => ({
@@ -113,8 +101,17 @@ class App extends Component {
     }
 
     //delete item from list
-    onClickDeleteItem = (id) => {
-        console.log('app hello')
+    onClickDeleteItem = (item) => {
+        this.setState(({itemsArray}) => {
+            const idx = itemsArray.findIndex((el) => el.id === item.id);
+            const beforeItemsArray = itemsArray.slice(0, idx);
+            const afterItemsArray = itemsArray.slice(idx + 1);
+            const newItemsArray = [...beforeItemsArray, ...afterItemsArray];
+
+            return {
+                itemsArray: newItemsArray
+            }
+        });
     };
 
     render() {

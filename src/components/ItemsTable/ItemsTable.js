@@ -13,17 +13,13 @@ class ItemsTable extends Component {
         };
     }
 
-    delete = (item) => {
-        console.log(item.id);
-    }
-
     render() {
         const itemsTableTr = this.props.itemsArrayProp.map((item) => {
             return(
                 <ItemsTableTr 
                     key={item.id}
                     data={item}  
-                    onDeleted={this.delete.bind(this, item)}
+                    onDeleteItem={this.props.onDeleted.bind(this, item)}
                 />
             );
         });

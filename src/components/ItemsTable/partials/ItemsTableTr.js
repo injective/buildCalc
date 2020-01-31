@@ -16,7 +16,7 @@ const ItemsTableTr = (props) => {
             <td className='td-icon'>
                 <button type='button'
                         id={props.data.id}
-                        onClick={props.onDeleted}>
+                        onClick={props.onDeleteItem}>
                     <FaTrashAlt />
                 </button>
             </td>
