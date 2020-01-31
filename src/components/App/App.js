@@ -48,35 +48,21 @@ class App extends Component {
     }
 
     // onChange input values of new item
-    onChangeWidthInput = (e) => {
+    onChangeInputForNewItem = (e) => {
+        const value = e.target.value;
         this.setState({
-            widthInput: e.target.value
-        })
-    }
-
-    onChangeLengthInput = (e) => {
-        this.setState({
-            lengthInput: e.target.value
-        })
-    }
-
-    onChangeCountInput = (e) => {
-        this.setState({
-            countInput: e.target.value
+            [e.target.name]: value 
         })
     }
 
     idCounter = () => {
         let countId;
-        
         if(this.state.itemsArray.length) {
             countId = this.state.itemsArray[this.state.itemsArray.length-1].id + 1;
         } else {
             countId = 0;
         }
-
         return countId++;
-        
     }
 
 
@@ -93,9 +79,9 @@ class App extends Component {
 
             this.setState((state) => ({
                 itemsArray: [...state.itemsArray, newItem],
-                widthInput: 0,
-                lengthInput: 0,
-                countInput: 0
+                widthInput: '',
+                lengthInput: '',
+                countInput: ''
             }))
         }
     }
@@ -137,9 +123,9 @@ class App extends Component {
                             <label htmlFor="widthInputID">Ширина</label>
                             <input type="number" 
                                 className="form-control" 
-                                id="widthInputID"  
+                                name="widthInput"  
                                 value={widthInput}
-                                onChange={this.onChangeWidthInput} />
+                                onChange={this.onChangeInputForNewItem} />
                         </div>
                     </div>
                     <div className="col">
@@ -147,9 +133,9 @@ class App extends Component {
                             <label htmlFor="lengthInputID">Длина</label>
                             <input type="number" 
                                 className="form-control" 
-                                id="lengthInputID" 
+                                name="lengthInput" 
                                 value={lengthInput}
-                                onChange={this.onChangeLengthInput} />
+                                onChange={this.onChangeInputForNewItem} />
                         </div>
                     </div>
                     <div className="col">
@@ -157,9 +143,9 @@ class App extends Component {
                             <label htmlFor="countInputID">Количество</label>
                             <input type="number" 
                                 className="form-control" 
-                                id="countInputID" 
+                                name="countInput" 
                                 value={countInput}
-                                onChange={this.onChangeCountInput} />
+                                onChange={this.onChangeInputForNewItem} />
                         </div>
                     </div>
                     {/* <NewItemInput /> */}
