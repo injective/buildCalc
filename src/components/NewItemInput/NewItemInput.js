@@ -8,8 +8,8 @@ const NewItemInput = (props) => {
             <input type="number"
                    className="form-control"
                    id="widthInputID"
-                   value={}
-                   onChange={} />
+                   value="1"
+                    />
         </div>
     );
 };

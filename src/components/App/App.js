@@ -114,15 +114,11 @@ class App extends Component {
 
     //delete item from list
     onClickDeleteItem = (id) => {
-        console.log(id);    
+        console.log('app hello')
     };
 
     render() {
-<<<<<<< HEAD
-        const { response, itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
-=======
         const { itemsArray, widthInput, lengthInput, countInput, headerOfTableItems } = this.state;
->>>>>>> a81a0a2c26c433c77b80a412a7dfde6773556e78
 
         // sum of count items
         const sumCountItems = itemsArray.reduce((sum, obj) => {
@@ -131,18 +127,10 @@ class App extends Component {
 
         // sum of length items
         const sumLengthItems = itemsArray.reduce((sum, obj) => {
-<<<<<<< HEAD
             return (sum + obj.lengthInput * obj.countInput)
-=======
-            return (
-                sum + (obj.lengthInput * obj.countInput)
-            );
->>>>>>> a81a0a2c26c433c77b80a412a7dfde6773556e78
         }, 0);
 
         
-        console.log(response);
-
         return(
             <div className="container">
 
@@ -177,6 +165,7 @@ class App extends Component {
                                 onChange={this.onChangeCountInput} />
                         </div>
                     </div>
+                    {/* <NewItemInput /> */}
                     <div className="col">
                         <div className="form-group">
                             <button type="button" 
@@ -192,10 +181,7 @@ class App extends Component {
                         itemsArrayProp={itemsArray} 
                         sumCountItemsProps={sumCountItems}
                         sumLengthItemsProps={sumLengthItems} 
-                        onDeleted={this.onClickDeleteItem}
-                        />
-
-
+                        onDeleted={this.onClickDeleteItem.bind(this)} />
                 </div>
             </div>
         );
