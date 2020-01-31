@@ -4,12 +4,11 @@ import React from 'react';
 const NewItemInput = (props) => {
     return(
         <div className="form-group">
-            <label htmlFor="widthInputID">Ширина</label>
+            <label htmlFor="widthInputID">{props.label}</label>
             <input type="number"
                    className="form-control"
-                   id="widthInputID"
-                   value="1"
-                    />
+                   name={props.name}
+                   value={props.value}  />
         </div>
     );
 };

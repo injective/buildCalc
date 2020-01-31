@@ -119,36 +119,28 @@ class App extends Component {
 
                 <div className="row form-group entiresInputsGroup">
                     <div className="col">
-                        <div className="form-group">
-                            <label htmlFor="widthInputID">Ширина</label>
-                            <input type="number" 
-                                className="form-control" 
-                                name="widthInput"  
-                                value={widthInput}
-                                onChange={this.onChangeInputForNewItem} />
-                        </div>
+                        <NewItemInput 
+                            label="Ширина"
+                            name="widthInput" 
+                            value={widthInput}
+                            onChangeInputForNewItem={this.onChangeInputForNewItem} />
                     </div>
+
                     <div className="col">
-                        <div className="form-group">
-                            <label htmlFor="lengthInputID">Длина</label>
-                            <input type="number" 
-                                className="form-control" 
-                                name="lengthInput" 
-                                value={lengthInput}
-                                onChange={this.onChangeInputForNewItem} />
-                        </div>
+                        <NewItemInput 
+                            label="Длина"
+                            name="lengthInput" 
+                            value={lengthInput}
+                            onChangeInputForNewItem={this.onChangeInputForNewItem.bind(this)} />
                     </div>
+
                     <div className="col">
-                        <div className="form-group">
-                            <label htmlFor="countInputID">Количество</label>
-                            <input type="number" 
-                                className="form-control" 
-                                name="countInput" 
-                                value={countInput}
-                                onChange={this.onChangeInputForNewItem} />
-                        </div>
+                        <NewItemInput 
+                            label="Количество"
+                            name="countInput" 
+                            value={countInput} 
+                            onChangeInputForNewItem={this.onChangeInputForNewItem} />
                     </div>
-                    {/* <NewItemInput /> */}
                     <div className="col">
                         <div className="form-group">
                             <button type="button" 
