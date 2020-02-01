@@ -8,7 +8,8 @@ const NewItemInput = (props) => {
             <input type="number"
                    className="form-control"
                    name={props.name}
-                   value={props.value}  />
+                   value={props.value}
+                   onChange={props.onChangeInputForNewItem} />
         </div>
     );
 };

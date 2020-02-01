@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import ItemsTable from '../ItemsTable';
 import NewItemInput from '../NewItemInput';
+import NewItemAddButton from '../NewItemAddButton';
 
 class App extends Component {
     constructor() {
@@ -45,7 +46,7 @@ class App extends Component {
                 countLabel: 'Count'
             },
         }
-    }
+    };
 
     // onChange input values of new item
     onChangeInputForNewItem = (e) => {
@@ -53,7 +54,7 @@ class App extends Component {
         this.setState({
             [e.target.name]: value 
         })
-    }
+    };
 
     idCounter = () => {
         let countId;
@@ -63,7 +64,7 @@ class App extends Component {
             countId = 0;
         }
         return countId++;
-    }
+    };
 
 
     // adding new item to array
@@ -75,16 +76,16 @@ class App extends Component {
                 lengthInput: parseInt(this.state.lengthInput),
                 countInput: parseInt(this.state.countInput),
                 id: this.idCounter()
-            }
+            };
 
             this.setState((state) => ({
                 itemsArray: [...state.itemsArray, newItem],
                 widthInput: '',
                 lengthInput: '',
                 countInput: ''
-            }))
+            }));
         }
-    }
+    };
 
     //delete item from list
     onClickDeleteItem = (item) => {
@@ -131,7 +132,7 @@ class App extends Component {
                             label="Длина"
                             name="lengthInput" 
                             value={lengthInput}
-                            onChangeInputForNewItem={this.onChangeInputForNewItem.bind(this)} />
+                            onChangeInputForNewItem={this.onChangeInputForNewItem} />
                     </div>
 
                     <div className="col">
@@ -142,11 +143,9 @@ class App extends Component {
                             onChangeInputForNewItem={this.onChangeInputForNewItem} />
                     </div>
                     <div className="col">
-                        <div className="form-group">
-                            <button type="button" 
-                                className="btn btn-dark" 
-                                onClick={this.onClickAddItem}>Add</button>
-                        </div>
+                        <NewItemAddButton
+                            onClickAddItem={this.onClickAddItem} />
+
                     </div>
                 </div>
 
